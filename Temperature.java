@@ -13,16 +13,16 @@ public class Temperature {
 	public static String temp,temperature,temperatureLoc,temperatureTime;
 	
 	
-	
+	/**********Constructor***********/
 	public Temperature(String Location){
 		this.location = Location;
 		try {
 			getTemperatureFromServer();
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
+			// Trace for exception
 			e.printStackTrace();
 		} catch (ExceptionException e) {
-			// TODO Auto-generated catch block
+			// Trace for exception
 			e.printStackTrace();
 		}
 	}
@@ -57,28 +57,14 @@ public class Temperature {
 		GetTemperatureResponse TemperatureResponse = MelbourneWeatherSation.getTemperature (TemperatureRequest);
 		Temperature = TemperatureResponse.get_return();
 		
+		/*********used for testing*************//*
 		System.out.println("THis is the size" + Temperature.length);
 		for (int i = 0;i < Temperature.length;i++){
 			System.out.print("Temperature output " + Temperature[i]);
-		}
+		}*/
 		return Temperature;
 	}
-	
-	public static String [] getTemperatureArray(){
-		String [] locationTempArray = null;
-		try {
-			locationTempArray = getTemperatureFromServer();
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ExceptionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
-		return locationTempArray;
-	}
-	
 	public String toString(){
 		return "The temperature is " + getTemperature() + "The time is:\t " + getTemperatureTime();
 	}

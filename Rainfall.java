@@ -1,32 +1,26 @@
 package melbourneweather2;
-import java.util.List;
-import java.awt.SystemColor;
-import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.*;
 
+import java.rmi.RemoteException;
 import melbourneweather2.MelbourneWeather2Stub.*;
 
 public class Rainfall {
 	public static String locationToFind;
 	public static String[] Rainfall;
-	public static String timeStamp = "";
-	public static List<Rainfall> rainfallObject = new ArrayList<Rainfall>();
 	public static String rainfallTime = "";
 	public static String time = "";
 	public static String rainfall = "";
 	public static String rainfallLoc;
-	public static String [] RainfallThis;
 	
+	/********Constructor***********/
 	public Rainfall(String Location){
 		locationToFind = Location;
 		try {
 			getRainfallFromServer();
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
+			// Trace for exception
 			e.printStackTrace();
 		} catch (ExceptionException e) {
-			// TODO Auto-generated catch block
+			// Trace for exception
 			e.printStackTrace();
 		}
 	}
@@ -35,7 +29,6 @@ public class Rainfall {
 		this.locationToFind = Location;
 		rainfallTime = rainfall;
 		this.time = time;
-		
 	}
 	
 	public static String getRainfall(){
@@ -53,6 +46,7 @@ public class Rainfall {
 		return rainfallLoc;
 	}
 	
+	/*************Gets data from the server*************/
 	public static String[] getRainfallFromServer() throws RemoteException, ExceptionException{
 		
 		final MelbourneWeather2Stub MelbourneWeatherSation = new MelbourneWeather2Stub();
@@ -60,27 +54,13 @@ public class Rainfall {
 		RainfallRequest.setLocation(locationToFind);
 		GetRainfallResponse RainfallResponse = MelbourneWeatherSation.getRainfall(RainfallRequest);
 		Rainfall = RainfallResponse.get_return();
+		/**********Used for testing****************//*
 		System.out.println("THis is the size" + Rainfall.length);
 		for (int i = 0;i < Rainfall.length;i++){
 			System.out.print("LEts " + Rainfall[i]);
-		}
+		}*/
 		
 		return Rainfall;
-	}
-	
-	public static String [] getRainfallArray(){
-		String [] locationTempArray = null;
-		try {
-			locationTempArray = getRainfallFromServer();
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ExceptionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return locationTempArray;
 	}
 	
 	public String toString(){
